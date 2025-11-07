@@ -2,7 +2,9 @@ trigger:
   - main
 
 pool:
-  name: 'ubuntu-latest'   # <-- this tells Azure DevOps to use your self-hosted pool
+  name: 'ubuntu-latest'   # pool name
+  demands:
+    - agent.os -equals Windows_NT
 
 steps:
   - script: node -v
