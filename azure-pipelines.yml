@@ -1,0 +1,24 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Use Node.js 18'
+
+  - script: |
+      npm install
+    displayName: 'Install dependencies'
+
+  # Deploy directly to Azure Web App
+  - task: AzureWebApp@1
+    displayName: 'Deploy to Azure Web App'
+    inputs:
+      azureSubscription: 'sc-azure-theju-poc'   # service connection name
+      appType: 'webAppLinux'
+      appName: 'theju-webapp-poc'               # your Web App name
+      package: '$(System.DefaultWorkingDirectory)'
