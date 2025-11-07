@@ -2,23 +2,18 @@ trigger:
   - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: 'ubuntu-latest'   # <-- this tells Azure DevOps to use your self-hosted pool
 
 steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '18.x'
-    displayName: 'Use Node.js 18'
+  - script: node -v
+    displayName: 'Show node version'
 
-  - script: |
-      npm install
+  - script: npm install
     displayName: 'Install dependencies'
 
-  # Deploy directly to Azure Web App
   - task: AzureWebApp@1
-    displayName: 'Deploy to Azure Web App'
     inputs:
-      azureSubscription: 'sc-azure-theju-poc'   # service connection name
+      azureSubscription: 'sc-azure-theju-poc'
       appType: 'webAppLinux'
-      appName: 'theju-webapp-poc'               # your Web App name
+      appName: 'theju-webapp-poc'
       package: '$(System.DefaultWorkingDirectory)'
