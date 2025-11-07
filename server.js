@@ -39,7 +39,7 @@ const pool = mysql.createPool(dbConfig);
 
 // simple routes
 app.get('/', (req, res) => {
-  res.send('Azure MySQL POC app is running!');
+  res.send('Azure MySQL POC app is running!!');
 });
 
 // insert: /insert?name=YourName
